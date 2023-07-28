@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Open+Sans&family=Roboto+Condensed&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* * {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+} */
+/* .hero-crepes {
+  position: relative;
+  height: calc(100vh - 80px);
+  min-height: 300px;
+  width: 100%;
+  color: white;
+  text-align: center;
+  overflow-x: hidden;
+  background-image: url('https://crepeaffaire.com/wp-content/uploads/2023/05/Mint.jpg');
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-attachment: fixed;
+} */
