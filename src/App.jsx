@@ -8,6 +8,7 @@ import Pruebas from './pages/MenuPages/Pruebas';
 import Games from './pages/Games';
 import ShoppingCart from './pages/ShoppingCart';
 import Contact from './pages/Contact';
+import ResultSearch from './components/forms/ResultSearch';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path='/menu' element={<Menu />} />
             <Route path='/menu/:category/:id' element={<ProductDetails />} />
             <Route path='/juegos' element={<Games />} />
+            <Route path='/resultados' element={<ResultSearch />} />
             <Route path='/contacto' element={<Contact />} />
             <Route path='/carrito' element={<ShoppingCart />} />
             <Route path='/pruebas' element={<Pruebas />} />

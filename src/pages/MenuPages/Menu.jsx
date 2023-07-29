@@ -16,6 +16,7 @@ export const Menu = () => {
   const [loading, setLoading] = useState(true);
 
   const { data } = useContext(ContextProduct);
+  console.log(data);
 
   useEffect(() => {
     setTimeout(() => {
@@ -121,7 +122,7 @@ export const Menu = () => {
                     <img
                       src={crepe.image}
                       alt={crepe.nombre}
-                      className='w-auto max-h-[250px]'
+                      className='w-auto h-[250px]'
                     />
                     <div className='flex flex-col gap-2 justify-center items-center'>
                       <p className='text-center font-roboto-condensed uppercase'>
@@ -158,7 +159,7 @@ export const Menu = () => {
                     <img
                       src={waffle.image}
                       alt={waffle.nombre}
-                      className='w-auto max-h-[250px]'
+                      className='w-auto h-[250px]'
                     />
                     <div className='flex flex-col gap-2 justify-center items-center'>
                       <p className='text-center font-roboto-condensed uppercase'>
@@ -192,7 +193,7 @@ export const Menu = () => {
                     <img
                       src={helado.image}
                       alt={helado.nombre}
-                      className='w-auto max-h-[250px]'
+                      className='w-auto h-[250px]'
                     />
                     <div className='flex flex-col gap-2 justify-center items-center'>
                       <p className='text-center font-roboto-condensed uppercase'>

@@ -1,10 +1,12 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { FaSearch, FaBars, FaShoppingCart } from 'react-icons/fa';
 import { navLinks } from '../constants/constants';
 import { Link, NavLink } from 'react-router-dom';
 import useScrolled from '../hooks/useScrolled';
 import useSmoothScrollTop from '../hooks/useSmoothScrollTop';
 import ContextProduct from '../context/ContextProduct';
+import SearchBar from './forms/SearchBar';
+import Tooltip from './Tooltip';
 
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
@@ -13,10 +15,41 @@ const Navbar = () => {
   const { cart } = useContext(ContextProduct);
   const cartLength = cart.length;
 
+  const [showSearchBar, setShowSearchBar] = useState(false);
+  const searchBarRef = useRef(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (
+        searchBarRef.current &&
+        !searchBarRef.current.contains(event.target)
+      ) {
+        setShowSearchBar(false);
+      }
+    };
+
+    if (showSearchBar) {
+      document.addEventListener('mousedown', handleOutsideClick);
+    } else {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [showSearchBar]);
+
+  const handleSearchBar = () => {
+    setShowSearchBar(!showSearchBar);
+  };
+
   const handleNavbar = () => {
-    // smoothScrollTop();
     setToggle(!toggle);
   };
+
+  // const handleSearch = (searchTerm) => {
+  //   console.log(searchTerm);
+  // };
 
   return (
     <>
@@ -28,7 +61,7 @@ const Navbar = () => {
         } transition-all duration-300 ease-linear fixed font-roboto-condensed`}
       >
         <nav
-          className={`w-full h-full flex justify-between items-center max-w-7xl px-4 py-2  text-lg `}
+          className={`w-full h-full flex justify-between items-center max-w-7xl px-4 py-2  text-lg`}
         >
           <Link
             to='/'
@@ -70,31 +103,34 @@ const Navbar = () => {
             >
               Mi cuenta
             </button>
-            <div className='flex items-center gap-2'>
-              <button
-                className={` text-complementary  ${
-                  scrolled ? 'hover:text-white ' : ' hover:text-primary-100'
-                } transition-all duration-300 ease-linear`}
-              >
-                <FaSearch />
-              </button>
-              <Link
-                to='/carrito'
-                className={`flex h-full justify-center items-center relative text-complementary  ${
-                  scrolled ? 'hover:text-white ' : ' hover:text-primary-100'
-                } transition-all duration-300 ease-linear`}
-                onClick={smoothScrollTop}
-              >
-                <FaShoppingCart />
-                {cartLength > 0 && (
-                  <span className='absolute -top-3 -right-3 text-sm bg-complementary w-[18px] h-[18px] rounded-full flex justify-center items-center text-white transition-all duration-300 ease-linear'>
-                    {cartLength}
-                  </span>
-                )}
-              </Link>
+            <div className='flex justify-center items-center gap-2'>
+              <Tooltip text='Buscar productos'>
+                <button
+                  className={` text-complementary  ${
+                    scrolled ? 'hover:text-white ' : ' hover:text-primary-100'
+                  } transition-all duration-300 ease-linear`}
+                >
+                  <FaSearch onClick={handleSearchBar} />
+                </button>
+              </Tooltip>
+              <Tooltip text='Ir al carrito'>
+                <Link
+                  to='/carrito'
+                  className={`flex h-full justify-center items-center relative text-complementary  ${
+                    scrolled ? 'hover:text-white ' : ' hover:text-primary-100'
+                  } transition-all duration-300 ease-linear`}
+                  onClick={smoothScrollTop}
+                >
+                  <FaShoppingCart />
+                  {cartLength > 0 && (
+                    <span className='absolute -top-3 -right-3 text-xs bg-highlight w-[20px] h-[20px] p-2 rounded-full flex justify-center items-center text-white transition-all duration-300 ease-linear'>
+                      {cartLength}
+                    </span>
+                  )}
+                </Link>
+              </Tooltip>
             </div>
             <button
-              // className='block md:hidden text-white hover:text-primary-100 z-20 transition-all duration-300 ease-linear'
               className={`md:hidden block z-20 ${
                 toggle
                   ? `${
@@ -145,6 +181,12 @@ const Navbar = () => {
             Mi cuenta
           </button>
         </nav>
+
+        <SearchBar
+          showSearchBar={showSearchBar}
+          searchBarRef={searchBarRef}
+          onHide={() => setShowSearchBar(false)}
+        />
       </div>
     </>
   );
