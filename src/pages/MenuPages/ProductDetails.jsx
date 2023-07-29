@@ -21,10 +21,8 @@ const ProductDetails = () => {
 
   useEffect(() => {
     const delay = setTimeout(() => {
-      if (data && data[category]) {
-        const productFound = data[category].find(
-          (product) => product.id === parseInt(id)
-        );
+      if (data) {
+        const productFound = data.find((product) => product._id === id);
         setProduct(productFound);
       }
       setLoading(false);

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { productData } from '../api/productApi';
+import { listarProductos } from '../api/productApi';
 import ContextProduct from './ContextProduct';
 
 // eslint-disable-next-line react/prop-types
@@ -11,8 +11,8 @@ const DataProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await productData();
-        setData(res.data);
+        const resData = await listarProductos();
+        setData(resData);
       } catch (err) {
         console.log(err);
       }
@@ -22,16 +22,15 @@ const DataProvider = ({ children }) => {
   }, []);
 
   const searchProducts = (searchTerm) => {
-    const filteredProducts = Object.values(data).reduce(
-      (acc, categoryProducts) => {
-        const productsInCategory = Object.values(categoryProducts).filter(
-          (product) =>
-            product.nombre.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        return [...acc, ...productsInCategory];
-      },
-      []
-    );
+    const filteredProducts = data.filter((product) => {
+      const { nombre, categoria } = product;
+      const lowerSearchTerm = searchTerm.toLowerCase();
+      return (
+        nombre.toLowerCase().includes(lowerSearchTerm) ||
+        categoria.toLowerCase().includes(lowerSearchTerm)
+        // subcategoria.toLowerCase().includes(lowerSearchTerm)
+      );
+    });
     setSearchResults(filteredProducts);
   };
 

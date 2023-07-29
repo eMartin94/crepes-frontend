@@ -16,7 +16,7 @@ export const Menu = () => {
   const [loading, setLoading] = useState(true);
 
   const { data } = useContext(ContextProduct);
-  console.log(data);
+  // console.log(data);
 
   useEffect(() => {
     setTimeout(() => {
@@ -112,101 +112,112 @@ export const Menu = () => {
           >
             <h1 className={`${styles.sectionTitle}`}>crepes</h1>
             <div className='flex flex-wrap gap-4 justify-center items-center'>
-              {data.crepes?.map((crepe) => (
-                <Fragment key={crepe.id}>
-                  <Link
-                    to={`/menu/crepes/${crepe.id}`}
-                    className={`${styles.boxCard}`}
-                    onClick={smoothScrollTop}
-                  >
-                    <img
-                      src={crepe.image}
-                      alt={crepe.nombre}
-                      className='w-auto h-[250px]'
-                    />
-                    <div className='flex flex-col gap-2 justify-center items-center'>
-                      <p className='text-center font-roboto-condensed uppercase'>
-                        <b>{crepe.nombre}</b>
-                      </p>
-                      <p className='font-roboto-condensed'>
-                        s/ {crepe.precio.toFixed(2)}
-                      </p>
-                    </div>
-                  </Link>
-                </Fragment>
-              ))}
+              {data
+                .filter((crepe) => crepe.categoria === 'crepes')
+                .map((crepe) => (
+                  <Fragment key={crepe._id}>
+                    <Link
+                      to={`/menu/${crepe.categoria}/${crepe._id}`}
+                      className={`${styles.boxCard}`}
+                      onClick={smoothScrollTop}
+                    >
+                      <img
+                        src={crepe.image}
+                        alt={crepe.nombre}
+                        className='w-auto h-[250px]'
+                      />
+                      <div className='flex flex-col gap-2 justify-center items-center'>
+                        <p className='text-center font-roboto-condensed uppercase'>
+                          <b>{crepe.nombre}</b>
+                        </p>
+                        <p className='font-roboto-condensed'>
+                          s/ {crepe.precio.toFixed(2)}
+                        </p>
+                      </div>
+                    </Link>
+                  </Fragment>
+                ))}
             </div>
             <Routes>
               <Route path=':id' element={<ProductDetails />} />
             </Routes>
           </div>
 
-          {/* <<- sección waffles -->*/}
+          {/* <-- sección waffles -->*/}
           <div
             className='w-full max-w-7xl mx-auto pt-[135px] pb-4 mb-8'
-            id='waffles'
             ref={wafflesRef}
+            id='waffles'
           >
             <h1 className={`${styles.sectionTitle}`}>waffles</h1>
             <div className='flex flex-wrap gap-4 justify-center items-center'>
-              {data.waffles?.map((waffle) => (
-                <Fragment key={waffle.id}>
-                  <Link
-                    to={`/menu/waffles/${waffle.id}`}
-                    className={`${styles.boxCard}`}
-                    onClick={smoothScrollTop}
-                  >
-                    <img
-                      src={waffle.image}
-                      alt={waffle.nombre}
-                      className='w-auto h-[250px]'
-                    />
-                    <div className='flex flex-col gap-2 justify-center items-center'>
-                      <p className='text-center font-roboto-condensed uppercase'>
-                        <b>{waffle.nombre}</b>
-                      </p>
-                      <p className='font-roboto-condensed'>
-                        s/ {waffle.precio.toFixed(2)}
-                      </p>
-                    </div>
-                  </Link>
-                </Fragment>
-              ))}
+              {data
+                .filter((waffle) => waffle.categoria === 'waffle')
+                .map((waffle) => (
+                  <Fragment key={waffle._id}>
+                    <Link
+                      to={`/menu/${waffle.categoria}/${waffle._id}`}
+                      className={`${styles.boxCard}`}
+                      onClick={smoothScrollTop}
+                    >
+                      <img
+                        src={waffle.image}
+                        alt={waffle.nombre}
+                        className='w-auto h-[250px]'
+                      />
+                      <div className='flex flex-col gap-2 justify-center items-center'>
+                        <p className='text-center font-roboto-condensed uppercase'>
+                          <b>{waffle.nombre}</b>
+                        </p>
+                        <p className='font-roboto-condensed'>
+                          s/ {waffle.precio.toFixed(2)}
+                        </p>
+                      </div>
+                    </Link>
+                  </Fragment>
+                ))}
             </div>
+            <Routes>
+              <Route path=':id' element={<ProductDetails />} />
+            </Routes>
           </div>
-
-          {/* <-- sección helados --> */}
+          {/* <-- sección helados -->*/}
           <div
-            className='w-full max-w-7xl mx-auto py-8 pt-[135px] pb-4'
+            className='w-full max-w-7xl mx-auto pt-[135px] pb-4 mb-8'
             ref={heladosRef}
             id='helados'
           >
             <h1 className={`${styles.sectionTitle}`}>helados</h1>
             <div className='flex flex-wrap gap-4 justify-center items-center'>
-              {data.helados?.map((helado) => (
-                <Fragment key={helado.id}>
-                  <Link
-                    to={`/menu/helados/${helado.id}`}
-                    className={`${styles.boxCard}`}
-                    onClick={smoothScrollTop}
-                  >
-                    <img
-                      src={helado.image}
-                      alt={helado.nombre}
-                      className='w-auto h-[250px]'
-                    />
-                    <div className='flex flex-col gap-2 justify-center items-center'>
-                      <p className='text-center font-roboto-condensed uppercase'>
-                        <b>{helado.nombre}</b>
-                      </p>
-                      <p className='font-roboto-condensed'>
-                        s/ {helado.precio.toFixed(2)}
-                      </p>
-                    </div>
-                  </Link>
-                </Fragment>
-              ))}
+              {data
+                .filter((helado) => helado.categoria === 'helados')
+                .map((helado) => (
+                  <Fragment key={helado._id}>
+                    <Link
+                      to={`/menu/${helado.categoria}/${helado._id}`}
+                      className={`${styles.boxCard}`}
+                      onClick={smoothScrollTop}
+                    >
+                      <img
+                        src={helado.image}
+                        alt={helado.nombre}
+                        className='w-auto h-[250px]'
+                      />
+                      <div className='flex flex-col gap-2 justify-center items-center'>
+                        <p className='text-center font-roboto-condensed uppercase'>
+                          <b>{helado.nombre}</b>
+                        </p>
+                        <p className='font-roboto-condensed'>
+                          s/ {helado.precio.toFixed(2)}
+                        </p>
+                      </div>
+                    </Link>
+                  </Fragment>
+                ))}
             </div>
+            <Routes>
+              <Route path=':id' element={<ProductDetails />} />
+            </Routes>
           </div>
         </>
       )}

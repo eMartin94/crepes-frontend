@@ -23,8 +23,8 @@ const ResultSearch = () => {
             <div className='flex flex-wrap gap-4 justify-center items-center text-complementary'>
               {searchResults.map((product) => (
                 <Link
-                  key={product.id}
-                  to={`/menu/${product.categoria}/${product.id}`}
+                  key={product._id}
+                  to={`/menu/${product.categoria}/${product._id}`}
                   className={`flex flex-col justify-between gap-4 items-center w-[200px] max-h-[280px] p-4 text-complementary hover:bg-primary-100 hover:bg-opacity-25 hover:shadow-md hover:text-complementary rounded-lg cursor-pointer transition-all duration-300 ease-linear`}
                   onClick={smoothScrollTop}
                 >
@@ -37,7 +37,6 @@ const ResultSearch = () => {
                     <p className='text-center font-roboto-condensed uppercase'>
                       <b>{product.nombre}</b>
                     </p>
-                    {/* <p>{product.categoria}</p> */}
                     <p>Precio: ${product.precio.toFixed(2)}</p>
                   </div>
                 </Link>
